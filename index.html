@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fram Hub - MVP Prototype</title>
+    <title>Fram Hub - Full MVP Prototype</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap');
 
@@ -41,7 +41,7 @@
         }
         .nav-logo { display: flex; align-items: center; height: 100%; cursor: pointer; }
         .nav-logo img { height: 32px; width: auto; display: block; }
-        
+
         .nav-links { display: flex; align-items: center; gap: 4px; }
         .nav-link { padding: 6px 12px; border-radius: var(--radius-sm); font-size: 13px; color: var(--gray-600); cursor: pointer; transition: background 0.15s; border: none; background: none; font-family: var(--sans); }
         .nav-link:hover { background: var(--gray-100); color: var(--black); }
@@ -51,26 +51,20 @@
         .btn-sm { padding: 7px 14px; border-radius: var(--radius-sm); font-size: 13px; cursor: pointer; border: none; font-family: var(--sans); font-weight: 500; transition: opacity 0.15s; }
         .btn-outline { background: none; border: 1px solid var(--gray-200); color: var(--black); }
         .btn-primary { background: var(--black); color: var(--white); }
-        .btn-primary:hover, .btn-sm:hover { opacity: 0.82; }
 
         /* PAGES */
         .page { display: none; }
         .page.active { display: block; }
 
-        /* ── LANDING ─────────────────────────────── */
-        .hero {
-            padding: 72px 32px 56px;
-            border-bottom: 1px solid var(--gray-200);
-            display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
-        }
-        .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; color: var(--teal); text-transform: uppercase; margin-bottom: 12px; }
-        .hero-title { font-family: var(--serif); font-size: 48px; line-height: 1.08; color: var(--black); margin-bottom: 20px; }
+        /* HERO */
+        .hero { padding: 72px 32px 56px; border-bottom: 1px solid var(--gray-200); display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+        .hero-title { font-family: var(--serif); font-size: 48px; line-height: 1.08; margin-bottom: 20px; }
         .hero-title span { color: var(--coral); }
-        .hero-sub { font-size: 15px; color: var(--gray-600); line-height: 1.65; margin-bottom: 28px; max-width: 400px; }
-        .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
-        .btn-hero { padding: 11px 22px; border-radius: var(--radius-md); font-size: 14px; font-weight: 500; cursor: pointer; border: none; font-family: var(--sans); transition: opacity 0.15s; }
+        .hero-sub { font-size: 15px; color: var(--gray-600); margin-bottom: 28px; max-width: 400px; }
+        .hero-actions { display: flex; gap: 10px; }
+        .btn-hero { padding: 12px 24px; border-radius: var(--radius-md); font-size: 14px; font-weight: 500; cursor: pointer; border: none; font-family: var(--sans); }
         .btn-hero-primary { background: var(--black); color: var(--white); }
-        .btn-hero-secondary { background: none; border: 1px solid var(--gray-200); color: var(--black); }
+        .btn-hero-secondary { background: none; border: 1px solid var(--gray-200); }
 
         .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .stat-card { background: var(--gray-100); border-radius: var(--radius-lg); padding: 20px; position: relative; overflow: hidden; }
@@ -79,98 +73,57 @@
         .stat-card.c2::before { background: var(--blue); }
         .stat-card.c3::before { background: var(--teal); }
         .stat-card.c4::before { background: var(--yellow); }
-        .stat-num { font-family: var(--serif); font-size: 32px; color: var(--black); }
-        .stat-label { font-size: 12px; color: var(--gray-600); }
+        .stat-num { font-family: var(--serif); font-size: 32px; }
 
-        /* QUICK LINKS */
-        .quick-section { padding: 40px 32px; border-bottom: 1px solid var(--gray-200); }
-        .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 24px; }
-        .section-title { font-size: 16px; font-weight: 500; }
-        .section-sub { font-size: 13px; color: var(--gray-400); }
-        .quick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        .quick-card {
-            border: 1px solid var(--gray-200); border-radius: var(--radius-lg);
-            padding: 20px; cursor: pointer; transition: all 0.15s;
-            display: flex; flex-direction: column; gap: 10px; position: relative;
-        }
-        .quick-card:hover { border-color: var(--black); transform: translateY(-2px); }
-        .quick-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
-        .quick-arrow { position: absolute; bottom: 20px; right: 20px; color: var(--gray-400); }
-
-        /* ── ORGS ─────────────────────────────────── */
+        /* SECTIONS */
         .page-inner { padding: 32px; }
-        .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; align-items: center; }
-        .filter-chip {
-            padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
-            border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-600);
-            cursor: pointer; transition: all 0.15s;
-        }
-        .filter-chip.active { background: var(--black); color: var(--white); border-color: var(--black); }
+        .quick-section { padding: 40px 32px; border-bottom: 1px solid var(--gray-200); }
+        .quick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .quick-card { border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 20px; cursor: pointer; transition: all 0.2s; position: relative; }
+        .quick-card:hover { border-color: var(--black); transform: translateY(-2px); }
+
+        /* ORGS & EVENTS */
         .orgs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-        .org-card { border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; transition: all 0.15s; cursor: pointer; }
-        .org-card:hover { border-color: var(--gray-400); transform: translateY(-2px); }
-        .org-body { padding: 18px; }
-        .org-avatar { width: 44px; height: 44px; border-radius: 10px; font-size: 18px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
-        .org-name { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
-        .org-desc { font-size: 12px; color: var(--gray-600); line-height: 1.5; margin-bottom: 12px; }
-        .org-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-        .tag { padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+        .org-card { border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; }
+        .org-body { padding: 20px; }
+        .org-avatar { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; font-size: 20px; }
+        .tag { padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 500; margin-right: 4px; }
         .tag-tech { background: #E6F3FB; color: #1265A0; }
         .tag-social { background: #FDE8EB; color: #B84955; }
 
-        /* ── EVENTS ────────────────────────────────── */
         .events-layout { display: grid; grid-template-columns: 240px 1fr; gap: 24px; }
-        .sidebar-label { font-size: 11px; font-weight: 600; color: var(--gray-400); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.05em; }
-        .sidebar-opt { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: var(--radius-sm); cursor: pointer; font-size: 13px; color: var(--gray-600); }
-        .sidebar-opt.active { background: var(--gray-100); color: var(--black); font-weight: 500; }
-        .events-list { display: flex; flex-direction: column; gap: 12px; }
-        .event-card {
-            border: 1px solid var(--gray-200); border-radius: var(--radius-lg);
-            padding: 18px 20px; cursor: pointer; transition: border-color 0.15s;
-            display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: center;
-        }
-        .event-date-box { text-align: center; background: var(--gray-100); border-radius: var(--radius-sm); padding: 6px 0; min-width: 56px; }
+        .event-card { border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 18px 20px; display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: center; margin-bottom: 12px; }
+        .event-date-box { text-align: center; background: var(--gray-100); border-radius: var(--radius-sm); padding: 6px; }
+        .event-day { font-size: 22px; font-weight: 600; line-height: 1; }
         .event-month { font-size: 10px; font-weight: 600; color: var(--gray-600); }
-        .event-day { font-size: 22px; font-weight: 600; color: var(--black); line-height: 1; }
-        .event-type-badge { padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: 500; margin-right: 8px; }
+        .event-type-badge { padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: 500; margin-right: 6px; }
         .badge-internal { background: #E6F3FB; color: #1265A0; }
         .badge-external { background: #F0EFFE; color: #5C50C4; }
-        .badge-intern-fram { background: #FDE8EB; color: #B84955; }
-        .event-reg-btn { padding: 7px 14px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 500; cursor: pointer; border: none; }
+        .event-reg-btn { padding: 8px 16px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 500; cursor: pointer; border: none; }
         .reg-internal { background: var(--black); color: var(--white); }
-        .reg-external { background: var(--white); border: 1px solid var(--gray-200); color: var(--black); }
+        .reg-external { background: white; border: 1px solid var(--gray-200); }
 
-        /* ── PORTAL ──────────────────────────── */
-        .portal-layout { display: grid; grid-template-columns: 220px 1fr; gap: 28px; }
-        .profile-card { border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 20px; text-align: center; margin-bottom: 16px; }
-        .avatar-circle { width: 64px; height: 64px; border-radius: 50%; background: var(--black); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 22px; margin: 0 auto 12px; }
-        .portal-nav-item { padding: 10px 12px; border-radius: var(--radius-sm); font-size: 13px; color: var(--gray-600); cursor: pointer; display: flex; align-items: center; gap: 8px; }
-        .portal-nav-item.active { background: var(--gray-100); color: var(--black); font-weight: 500; }
-        .my-event-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border: 1px solid var(--gray-200); border-radius: var(--radius-md); margin-bottom: 10px; }
-        .status-chip { padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 500; background: #E5F5F1; color: #30917E; }
-
-        /* ── SCHEMAS ── */
-        .schema-field { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: var(--gray-100); border-radius: var(--radius-sm); font-size: 12px; margin-bottom: 6px; }
-        .field-name { font-family: monospace; font-weight: 600; min-width: 140px; }
-        .field-type { font-family: monospace; color: var(--blue); }
-        .file-tree { font-family: monospace; font-size: 12px; background: var(--black); color: #adbac7; padding: 20px; border-radius: var(--radius-lg); line-height: 1.6; }
-        .tree-dir { color: #539bf5; }
-
-        .tab-bar { display: flex; border-bottom: 1px solid var(--gray-200); margin-bottom: 24px; }
-        .tab-btn { padding: 10px 16px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; background: none; border-bottom: 2px solid transparent; margin-bottom: -1px; }
-        .tab-btn.active { border-bottom-color: var(--black); color: var(--black); }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        /* PORTAL & SCHEMAS */
+        .portal-layout { display: grid; grid-template-columns: 220px 1fr; gap: 32px; }
+        .profile-card { border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 20px; text-align: center; }
+        .avatar-circle { width: 64px; height: 64px; border-radius: 50%; background: var(--black); color: white; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 12px; }
+        .schema-field { display: flex; gap: 12px; padding: 10px; background: var(--gray-100); border-radius: 6px; margin-bottom: 6px; font-family: monospace; font-size: 12px; }
+        .file-tree { background: #181818; color: #adbac7; padding: 20px; border-radius: 12px; font-family: monospace; font-size: 12px; line-height: 1.6; }
         
-        .divider { height: 1px; background: var(--gray-200); margin: 24px 0; }
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+        .filter-chip { padding: 6px 14px; border-radius: 20px; font-size: 12px; cursor: pointer; border: 1px solid var(--gray-200); background: white; margin-right: 6px; }
+        .filter-chip.active { background: var(--black); color: white; }
+        .sidebar-opt { padding: 8px; cursor: pointer; border-radius: 6px; font-size: 13px; color: var(--gray-600); }
+        .sidebar-opt.active { background: var(--gray-100); color: var(--black); font-weight: 500; }
+        
+        .tab-btn { padding: 10px 16px; cursor: pointer; border: none; background: none; border-bottom: 2px solid transparent; }
+        .tab-btn.active { border-bottom-color: var(--black); font-weight: 500; }
     </style>
 </head>
 <body>
 
 <div class="hub">
     <nav>
-        <div class="nav-logo" onclick="showPage('landing', document.querySelector('.nav-link'))">
+        <div class="nav-logo" onclick="showPage('landing', document.querySelectorAll('.nav-link')[0])">
             <img src="https://static.wixstatic.com/media/5745eb_85f070c9deec4c9ca65da2555185bfcf~mv2.png/v1/fill/w_300,h_106,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Framfblogo2copy.png" alt="Fram Logo">
         </div>
         <div class="nav-links">
@@ -189,42 +142,33 @@
     <div id="page-landing" class="page active">
         <section class="hero">
             <div>
-                <p class="hero-eyebrow">Innovasjonsmiljøet på NTNU</p>
-                <h1 class="hero-title">Alt som rører seg på <span>Fram</span>.</h1>
-                <p class="hero-sub">Oppdag arrangementer, finn din studentorganisasjon og bli en del av Trondheims mest spennende teknologimiljø.</p>
+                <h1 class="hero-title">Det digitale hjemmet for <span>Fram</span>.</h1>
+                <p class="hero-sub">Oppdag organisasjoner, meld deg på arrangementer og hold deg oppdatert på alt som skjer i miljøet.</p>
                 <div class="hero-actions">
-                    <button class="btn-hero btn-hero-primary" onclick="showPage('events', document.querySelectorAll('.nav-link')[2])">Se kalender</button>
+                    <button class="btn-hero btn-hero-primary" onclick="showPage('events', document.querySelectorAll('.nav-link')[2])">Se hva som skjer</button>
                     <button class="btn-hero btn-hero-secondary" onclick="showPage('orgs', document.querySelectorAll('.nav-link')[1])">Utforsk TO-er</button>
                 </div>
             </div>
             <div class="hero-stats">
                 <div class="stat-card c1"><div class="stat-num">12</div><div class="stat-label">Organisasjoner</div></div>
-                <div class="stat-card c2"><div class="stat-num">45+</div><div class="stat-label">Events per semester</div></div>
-                <div class="stat-card c3"><div class="stat-num">800</div><div class="stat-label">Aktive medlemmer</div></div>
-                <div class="stat-card c4"><div class="stat-num">24/7</div><div class="stat-label">Tilgang for TO-er</div></div>
+                <div class="stat-card c2"><div class="stat-num">45+</div><div class="stat-label">Events per år</div></div>
+                <div class="stat-card c3"><div class="stat-num">800</div><div class="stat-label">Studenter</div></div>
+                <div class="stat-card c4"><div class="stat-num">24/7</div><div class="stat-label">Innovasjon</div></div>
             </div>
         </section>
-
         <section class="quick-section">
-            <div class="section-header"><h2 class="section-title">Kom i gang</h2></div>
             <div class="quick-grid">
                 <div class="quick-card" onclick="showPage('orgs', document.querySelectorAll('.nav-link')[1])">
-                    <div class="quick-icon" style="background:#FDE8EB;">🔍</div>
-                    <h3>Finn organisasjon</h3>
-                    <p>Bla gjennom tekniske og sosiale grupper tilknyttet Fram.</p>
-                    <span class="quick-arrow">→</span>
+                    <h3>Finn din gjeng 🔍</h3>
+                    <p>Se oversikt over alle de tekniske organisasjonene.</p>
                 </div>
                 <div class="quick-card" onclick="showPage('events', document.querySelectorAll('.nav-link')[2])">
-                    <div class="quick-icon" style="background:#E6F3FB;">📅</div>
-                    <h3>Se hva som skjer</h3>
-                    <p>Felles kalender med alt fra kurs til sosiale kvelder.</p>
-                    <span class="quick-arrow">→</span>
+                    <h3>Kalender 📅</h3>
+                    <p>Gå aldri glipp av en demo-dag eller et kurs.</p>
                 </div>
                 <div class="quick-card" onclick="showPage('portal', document.querySelectorAll('.nav-link')[3])">
-                    <div class="quick-icon" style="background:#E5F5F1;">👤</div>
-                    <h3>Min Fram-profil</h3>
-                    <p>Håndter dine påmeldinger og medlemskap på ett sted.</p>
-                    <span class="quick-arrow">→</span>
+                    <h3>Min profil 👤</h3>
+                    <p>Oversikt over dine påmeldinger.</p>
                 </div>
             </div>
         </section>
@@ -232,8 +176,8 @@
 
     <div id="page-orgs" class="page">
         <div class="page-inner">
-            <h1 style="font-family:var(--serif); font-size:32px; margin-bottom:24px;">Organisasjoner</h1>
-            <div class="filter-bar">
+            <h2 style="margin-bottom:20px;">Organisasjoner på Fram</h2>
+            <div style="margin-bottom:24px;">
                 <button class="filter-chip active" onclick="filterOrgs('alle', this)">Alle</button>
                 <button class="filter-chip" onclick="filterOrgs('Teknisk', this)">Teknisk</button>
                 <button class="filter-chip" onclick="filterOrgs('Sosialt', this)">Sosialt</button>
@@ -246,13 +190,12 @@
         <div class="page-inner">
             <div class="events-layout">
                 <div class="events-sidebar">
-                    <div class="sidebar-label">Type arrangement</div>
-                    <div class="sidebar-opt active" onclick="filterEvents('alle', this)">Alle</div>
+                    <p class="sidebar-label">Filtrer type</p>
+                    <div class="sidebar-opt active" onclick="filterEvents('alle', this)">Alle arrangementer</div>
                     <div class="sidebar-opt" onclick="filterEvents('intern', this)">Intern påmelding</div>
                     <div class="sidebar-opt" onclick="filterEvents('ekstern', this)">Ekstern lenke</div>
-                    <div class="sidebar-opt" onclick="filterEvents('kunfram', this)">Kun Fram-medlemmer</div>
                 </div>
-                <div class="events-list" id="events-list"></div>
+                <div id="events-list"></div>
             </div>
         </div>
     </div>
@@ -263,21 +206,18 @@
                 <div class="portal-sidebar">
                     <div class="profile-card">
                         <div class="avatar-circle">AK</div>
-                        <p class="profile-name">Astrid Kleven</p>
-                        <p style="font-size:12px; color:var(--gray-600);">Ascend NTNU · 3. år</p>
+                        <h3>Astrid Kleven</h3>
+                        <p style="color:var(--gray-600); font-size:12px;">Ascend NTNU</p>
                     </div>
-                    <div class="portal-nav-item active">📅 Mine arrangementer</div>
-                    <div class="portal-nav-item">👤 Profilinnstillinger</div>
                 </div>
-                <div class="portal-main">
-                    <h2 style="margin-bottom:16px;">Mine påmeldinger</h2>
-                    <div class="my-event-row">
-                        <div><strong>Demo Day — Ascend NTNU</strong><br><small>22. april · Gruva</small></div>
-                        <span class="status-chip">Bekreftet</span>
-                    </div>
-                    <div class="my-event-row">
-                        <div><strong>Innovasjonsdagen Kick-off</strong><br><small>2. mai · Oppredningen</small></div>
-                        <span class="status-chip">Bekreftet</span>
+                <div>
+                    <h3>Mine påmeldinger</h3>
+                    <div id="my-registrations" style="margin-top:16px;">
+                        <div class="event-card" style="grid-template-columns:56px 1fr auto;">
+                            <div class="event-date-box"><div class="event-day">22</div><div class="event-month">APR</div></div>
+                            <div><strong>Demo Day — Ascend</strong><p style="font-size:12px;">Bekreftet plass</p></div>
+                            <button class="btn-sm btn-outline">Avmeld</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -287,29 +227,27 @@
     <div id="page-schemas" class="page">
         <div class="page-inner">
             <div class="tab-bar">
-                <button class="tab-btn active" onclick="switchSTab('sanity', this)">Sanity (Innhold)</button>
-                <button class="tab-btn" onclick="switchSTab('supabase', this)">Supabase (Data)</button>
+                <button class="tab-btn active" onclick="switchSTab('sanity', this)">Sanity (CMS)</button>
+                <button class="tab-btn" onclick="switchSTab('supabase', this)">Supabase (DB)</button>
                 <button class="tab-btn" onclick="switchSTab('files', this)">Filstruktur</button>
             </div>
-            <div id="stab-sanity" class="tab-content active">
-                <h3>Event Schema</h3>
-                <div class="schema-field"><span class="field-name">title</span><span class="field-type">string</span></div>
-                <div class="schema-field"><span class="field-name">organizer</span><span class="field-type">reference</span></div>
-                <div class="schema-field"><span class="field-name">reg_type</span><span class="field-type">"internal" | "external"</span></div>
+            <div id="stab-sanity" class="tab-content active" style="margin-top:20px;">
+                <div class="schema-field"><span>title</span><span style="color:var(--blue)">string</span><span>(Påkrevd)</span></div>
+                <div class="schema-field"><span>organizer</span><span style="color:var(--blue)">reference</span><span>(Til org)</span></div>
+                <div class="schema-field"><span>registration_type</span><span style="color:var(--blue)">"internal" | "external"</span></div>
             </div>
-            <div id="stab-supabase" class="tab-content">
-                <h3>Profiles Table</h3>
-                <div class="schema-field"><span class="field-name">id</span><span class="field-type">uuid (PK)</span></div>
-                <div class="schema-field"><span class="field-name">full_name</span><span class="field-type">text</span></div>
-                <div class="schema-field"><span class="field-name">org_id</span><span class="field-type">text</span></div>
+            <div id="stab-supabase" class="tab-content" style="display:none; margin-top:20px;">
+                <div class="schema-field"><span>user_id</span><span style="color:var(--blue)">uuid</span><span>(Primary Key)</span></div>
+                <div class="schema-field"><span>event_id</span><span style="color:var(--blue)">string</span><span>(Sanity ID)</span></div>
+                <div class="schema-field"><span>status</span><span style="color:var(--blue)">confirmed | waitlist</span></div>
             </div>
-            <div id="stab-files" class="tab-content">
+            <div id="stab-files" class="tab-content" style="display:none; margin-top:20px;">
                 <div class="file-tree">
                     <span class="tree-dir">fram-hub/</span><br>
-                    ├── <span class="tree-dir">app/</span> (Next.js Routes)<br>
-                    ├── <span class="tree-dir">components/</span> (UI components)<br>
-                    ├── <span class="tree-dir">lib/</span> (Supabase/Sanity clients)<br>
-                    └── <span class="tree-dir">studio/</span> (Sanity CMS config)
+                    &nbsp;&nbsp;├── <span class="tree-dir">app/</span> (Next.js ruter)<br>
+                    &nbsp;&nbsp;├── <span class="tree-dir">components/</span> (UI elementer)<br>
+                    &nbsp;&nbsp;├── <span class="tree-dir">lib/</span> (Supabase & Sanity klienter)<br>
+                    &nbsp;&nbsp;└── <span class="tree-dir">studio/</span> (Sanity CMS config)
                 </div>
             </div>
         </div>
@@ -320,7 +258,81 @@
     const orgs = [
         { name: 'Ascend NTNU', desc: 'Autonome droner.', tags: ['Teknisk'], emoji: '✈️', color: '#E6F3FB' },
         { name: 'Revolve NTNU', desc: 'Elektrisk racerbil.', tags: ['Teknisk'], emoji: '🏎️', color: '#FDE8EB' },
-        { name: 'Fram Social', desc: 'Sosiale events.', tags: ['Sosialt'], emoji: '🎉', color: '#F0EFFE' }
+        { name: 'Orbit NTNU', desc: 'Satellitt-teknologi.', tags: ['Teknisk'], emoji: '🛰️', color: '#E5F5F1' },
+        { name: 'Fram Social', desc: 'Sosiale arrangementer.', tags: ['Sosialt'], emoji: '🎉', color: '#F0EFFE' }
     ];
 
-    const events =
+    const events = [
+        { title: 'Demo Day — Ascend', month: 'APR', day: '22', org: 'Ascend', type: 'intern', label: 'Intern påmelding' },
+        { title: 'Reveal Night', month: 'APR', day: '25', org: 'Revolve', type: 'ekstern', label: 'Ekstern lenke' },
+        { title: 'Orbit Workshop', month: 'MAI', day: '05', org: 'Orbit', type: 'intern', label: 'Intern påmelding' }
+    ];
+
+    function showPage(id, btn) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        document.getElementById('page-' + id).classList.add('active');
+        if(btn) btn.classList.add('active');
+        if(id === 'orgs') renderOrgs('alle');
+        if(id === 'events') renderEvents('alle');
+    }
+
+    function renderOrgs(f) {
+        const grid = document.getElementById('orgs-grid');
+        const filtered = f === 'alle' ? orgs : orgs.filter(o => o.tags.includes(f));
+        grid.innerHTML = filtered.map(o => `
+            <div class="org-card">
+                <div class="org-body">
+                    <div class="org-avatar" style="background:${o.color}">${o.emoji}</div>
+                    <strong>${o.name}</strong>
+                    <p style="font-size:12px; color:var(--gray-600); margin:8px 0;">${o.desc}</p>
+                    ${o.tags.map(t => `<span class="tag ${t==='Teknisk'?'tag-tech':'tag-social'}">${t}</span>`).join('')}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function renderEvents(f) {
+        const list = document.getElementById('events-list');
+        const filtered = f === 'alle' ? events : events.filter(e => e.type === f);
+        list.innerHTML = filtered.map(e => `
+            <div class="event-card">
+                <div class="event-date-box"><div class="event-day">${e.day}</div><div class="event-month">${e.month}</div></div>
+                <div>
+                    <strong>${e.title}</strong><br>
+                    <span class="event-type-badge ${e.type==='intern'?'badge-internal':'badge-external'}">${e.label}</span>
+                    <small>${e.org}</small>
+                </div>
+                <button class="event-reg-btn ${e.type==='intern'?'reg-internal':'reg-external'}">
+                    ${e.type==='intern'?'Meld deg på':'Gå til skjema ↗'}
+                </button>
+            </div>
+        `).join('');
+    }
+
+    function filterOrgs(t, b) {
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        b.classList.add('active');
+        renderOrgs(t);
+    }
+
+    function filterEvents(t, b) {
+        document.querySelectorAll('.sidebar-opt').forEach(o => o.classList.remove('active'));
+        b.classList.add('active');
+        renderEvents(t);
+    }
+
+    function switchSTab(id, b) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+        b.classList.add('active');
+        document.getElementById('stab-' + id).style.display = 'block';
+    }
+
+    // Initialize
+    renderOrgs('alle');
+    renderEvents('alle');
+</script>
+
+</body>
+</html>
