@@ -68,8 +68,17 @@
 
   .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .stat-card {
-    background: var(--gray-100); border-radius: var(--radius-lg); padding: 20px;
-    position: relative; overflow: hidden;
+    background: var(--gray-100); 
+    border-radius: var(--radius-lg); 
+    padding: 20px;
+    position: relative; 
+    overflow: hidden;
+    cursor: pointer; /* Legg til denne linjen */
+    transition: background 0.2s; /* Valgfritt: gjør at den reagerer litt når man hovrer */
+  }
+
+  .stat-card:hover {
+    background: var(--gray-200); /* Valgfritt: gjør den litt mørkere ved hovring */
   }
   .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; border-radius: 0 2px 2px 0; }
   .stat-card.c1::before { background: var(--coral); }
@@ -264,7 +273,7 @@
           <div class="stat-num">600+</div>
           <div class="stat-label">Studenter i miljøet</div>
         </div>
-        <div class="stat-card c4">
+        <div class="stat-card c4" onclick="window.open('https://www.gruvantnu.no/', '_blank')">
           <div class="stat-num">Gruva</div>
           <div class="stat-label">+ Oppredningen, Sem Sælands vei</div>
         </div>
