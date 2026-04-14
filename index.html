@@ -631,7 +631,7 @@ function renderOrgs(filter) {
       const cls = t === 'Teknisk' ? 'tag-tech' : t === 'Sosialt' ? 'tag-social' : t === 'Rekruttering' ? 'tag-recruit' : t === 'Bærekraft' ? 'tag-sustain' : 'tag-sport';
       return `<span class="tag ${cls}">${t}</span>`;
     }).join('');
-    return `<div class="org-card">
+    return `<div class="org-card" onclick="window.open('https://www.ascendntnu.no/', '_blank')">
       <div class="org-banner" style="background:${o.color.replace('#E','#1').replace('FB','B2').replace('EB','73').replace('F1','9F').replace('BE6','FD031')}; background:var(--gray-200);"></div>
       <div class="org-body">
         <div class="org-avatar" style="background:${o.color}">${o.emoji}</div>
